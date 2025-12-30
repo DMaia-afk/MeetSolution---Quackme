@@ -201,7 +201,7 @@ MeetSolution/
 
 ## License
 
-This project is licensed under the MIT License. See `LICENSE` for details.
+This unlicensed project
 
 ## Acknowledgments
 
