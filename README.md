@@ -209,5 +209,4 @@ This unlicensed project
 - [PyAnnote](https://github.com/pyannote/pyannote-audio) for speaker diarization.
 - [Ollama](https://ollama.com/) for local LLM inference.
 - [LangChain](https://www.langchain.com/) for prompt management.
-- Special thanks to the creators of the ["Board Meeting Example" video](https://www.youtube.com/watch?v=WBXJEJCsULw&t=8s) used for testing MeetSolution's transcription and summarization capabilities.</content>
-<parameter name="filePath">c:\Users\Dmaia-AFK\Desktop\Estudos\Python\Quackme - MeetSolution\README.md
+- Special thanks to the creators of the ["Board Meeting Example" video](https://www.youtube.com/watch?v=WBXJEJCsULw&t=8s) used for testing MeetSolution's transcription and summarization capabilities.
