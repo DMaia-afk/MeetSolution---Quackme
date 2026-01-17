@@ -191,6 +191,19 @@ MeetSolution/
 - **Ollama not responding**: Ensure Ollama is running and the model is pulled.
 - **Hugging Face errors**: Verify your token in `.env`.
 
+## Images
+- **Main Menu**:
+![main_menu](Example/Main_menu.jpeg)
+
+- **Action Menu**:
+![main_menu](Example/Action_menu.jpeg)
+
+- **Documentation**:
+![main_menu](Example/docs.jpeg)
+
+- **Result Example**:
+![main_menu](Example/image_example.jpeg)
+
 ## Contributing
 
 1. Fork the repository.
