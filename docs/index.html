@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeetSolution - Guia Técnico</title>
+    
+    <!-- Scripts Externos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Importação da fonte do Google */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth; /* Faz o deslize suave ao clicar no menu */
+        }
+
+        /* Estilo para destacar o link ativo no menu lateral */
+        .sidebar-link.active {
+            background-color: #f3f4f6;
+            border-right: 4px solid #3b82f6;
+            color: #1d4ed8;
+            font-weight: 600;
+        }
+
+        /* Efeito de vidro (Glassmorphism) nos cartões */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(229, 231, 235, 0.5);
+            transition: transform 0.2s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-2px); /* Sobe um pouquinho ao passar o mouse */
+        }
+
+        /* Estilo para os blocos de código (Terminal) */
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            font-family: 'ui-monospace', monospace;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Estilo para palavras de código dentro do texto */
+        code {
+            background-color: #f1f5f9;
+            color: #2563eb;
+            padding: 0.1rem 0.3rem;
+            border-radius: 0.25rem;
+            font-size: 0.9em;
+        }
+
+        /* Suporte para idiomas (PT / EN) */
+        [lang="en"] .lang-pt { display: none; }
+        [lang="pt"] .lang-en { display: none; }
+
+        /* Botão de copiar dentro dos blocos de código */
+        pre { position: relative; }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255,255,255,0.06);
+            color: #e2e8f0;
+            border: none;
+            padding: 0.35rem 0.5rem;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .copy-btn:hover { background: rgba(255,255,255,0.12); }
+
+        /* FAQ Accordion */
+        .faq-q { cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; }
+        .faq-a { display: none; padding: 0.75rem 1rem; border-top: 1px solid rgba(148,163,184,0.12); }
+        .faq-item.open .faq-a { display: block; }
+
+        /* Google Translate widget styles */
+        #google_translate_element .goog-te-combo { padding: 0.25rem 0.5rem; border-radius: 0.375rem; background: #fff; border: 1px solid #e2e8f0; font-size: 0.85rem; color: #0f172a; }
+        #google_translate_element { transform: translateY(-3px); }
+        /* Remove rough Google badge fallback spacing */
+        .goog-te-gadget-icon { display: none !important; }
+        .goog-logo-link { display: none !important; }
+
+        /* Translate shortcut buttons */
+        .translate-shortcut { padding: 0.2rem 0.5rem; border-radius: 0.375rem; border: 1px solid #e2e8f0; background: #fff; font-size: 0.78rem; color: #0f172a; cursor: pointer; }
+        .translate-shortcut:hover { background: #f8fafc; }
+
+        .readme-btn {
+            transition: all 0.3s ease;
+            background: #1e293b;
+        }
+        .readme-btn:hover {
+            background: #0f172a;
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900" lang="pt">
+
+    <!-- Container Principal: Flexbox que muda para coluna no celular (flex-col) e linha no desktop (md:flex-row) -->
+    <div class="flex flex-col md:flex-row min-h-screen">
+        
+        <!-- BARRA LATERAL (Aside) -->
+        <aside class="w-full md:w-64 bg-white border-r border-slate-200 sticky top-0 h-auto md:h-screen z-20 overflow-y-auto">
+            <!-- Logo e Nome -->
+            <div class="p-6 border-b border-slate-100 flex items-center gap-3">
+                <div class="bg-blue-600 p-2 rounded-lg text-white">
+                    <i class="fas fa-microchip text-xl"></i> <!-- Ícone da logo -->
+                </div>
+                <h1 class="font-bold text-lg tracking-tight">MeetSolution</h1>
+                
+            </div>
+            
+            <!-- Links de Navegação: Cada "href" deve bater com o "id" da seção abaixo -->
+                <a href="https://github.com/DMaia-afk/MeetSolution---Quackme" target="_blank" class="readme-btn w-[90%] flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-white text-[11px] font-bold shadow-md mx-auto">
+                    <i class="fab fa-markdown text-base"></i>
+                    <span class="text-center">Ler Readme Para quaisquer dúvidas</span>
+                </a>
+            <nav class="p-4 space-y-1">
+                <a href="#intro" class="sidebar-link flex items-center gap-3 p-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fas fa-info-circle w-5"></i> Introdução
+                </a>
+                <a href="#instalacao" class="sidebar-link flex items-center gap-3 p-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fas fa-terminal w-5"></i> Instalação
+                </a>
+                <a href="#arquitetura" class="sidebar-link flex items-center gap-3 p-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fas fa-shield-alt w-5"></i> Privacidade & IA
+                </a>
+                <a href="#hardware" class="sidebar-link flex items-center gap-3 p-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fas fa-server w-5"></i> Matriz Hardware
+                </a>
+                <a href="#audio" class="sidebar-link flex items-center gap-3 p-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fas fa-headphones w-5"></i> Configuração Áudio
+                </a>
+                <a href="#diarizacao" class="sidebar-link flex items-center gap-3 p-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fas fa-sliders w-5"></i> Otimização
+                </a>
+                <a href="#sumarizacao" class="sidebar-link flex items-center gap-3 p-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fas fa-file-alt w-5"></i> Sumarização
+                </a>
+                <a href="#troubleshooting" class="sidebar-link flex items-center gap-3 p-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fas fa-tools w-5"></i> Solução de Problemas
+                </a>
+            </nav>
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL (Main) -->
+        <main class="flex-1 overflow-y-auto p-6 md:p-12 max-w-5xl mx-auto">
+            
+            <!-- SEÇÃO: INTRODUÇÃO -->
+            <section id="intro" class="mb-16">
+                <!-- Badge superior -->
+                <div class="inline-block px-3 py-1 bg-blue-100 text-blue-700 text-sm font-semibold rounded-full mb-4">
+                    Documentação Técnica - Visual (V 0.9)
+                </div>
+
+                <div class="flex items-center justify-end mb-4 gap-3">
+
+                    <div id="google_translate" class="flex items-center gap-3 text-xs text-slate-500">
+                        <div id="google_translate_element"></div>
+                        <div class="flex gap-2">
+                            <button class="translate-shortcut" onclick="translatePage('en')">Translate → EN</button>
+                            <button class="translate-shortcut" onclick="translatePage('pt')">Translate → PT</button>
+                        </div>
+                        <span class="text-xs text-slate-400 italic lang-pt">Tradução automática (pode não ser perfeita)</span>
+                        <span class="text-xs text-slate-400 italic lang-en">Automatic translation (may be imperfect)</span>
+
+                    </div>
+                </div>
+                
+                <h2 class="text-4xl font-extrabold mb-4 text-slate-900">Guia Técnico MeetSolution</h2>
+                <p class="text-xl text-slate-600 leading-relaxed lang-pt">
+                    Este guia detalha o funcionamento interno, requisitos de infraestrutura e otimizações para o MeetSolution, servindo como complemento técnico ao README oficial.
+                </p>
+                <p class="text-xl text-slate-600 leading-relaxed lang-en">
+                    MeetSolution is a comprehensive tool for recording, transcribing, and summarizing meeting audio using advanced AI technologies. It leverages WhisperX for speaker diarization and transcription, and integrates with Ollama for generating structured summaries of meetings.
+                </p>
+
+                <h3 class="text-lg font-bold mt-4 lang-pt">Por que WhisperX e Ollama?</h3>
+                <p class="text-sm text-slate-600 lang-pt">Priorizamos soluções open-source e de custo zero: WhisperX roda localmente sem taxas; Ollama permite inferência local sem assinatura.</p>
+                <h3 class="text-lg font-bold mt-4 lang-en">Why Choose WhisperX and Ollama?</h3>
+                <p class="text-sm text-slate-600 lang-en">We prioritize cost-effective open-source solutions: WhisperX runs locally with no API fees; Ollama enables local LLM inference avoiding subscription costs.</p>
+            </section>
+
+            <!-- SEÇÃO 1: INSTALAÇÃO -->
+            <!-- O "scroll-mt-24" serve para o título não ficar grudado no topo ao clicar no menu -->
+            <section id="instalacao" class="mb-16 scroll-mt-24">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-download text-2xl text-blue-600"></i>
+                    <h3 class="text-2xl font-bold">1. Requisitos de Software e Instalação</h3>
+                </div>
+                
+                <!-- Grid de cartões (2 colunas no desktop) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="glass-card p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
+                        <h4 class="font-bold mb-3 text-slate-800 flex items-center gap-2">
+                            <i class="fab fa-python text-blue-500"></i> Python & FFmpeg
+                        </h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            O <strong>Python 3.10+</strong> é mandatório para suporte ao WhisperX. O <strong>FFmpeg</strong> deve estar instalado e nas variáveis de ambiente (PATH).
+                        </p>
+                    </div>
+                    <div class="glass-card p-6 rounded-xl shadow-sm border-l-4 border-purple-500">
+                        <h4 class="font-bold mb-3 text-slate-800 flex items-center gap-2">
+                            <i class="fas fa-cloud-download-alt text-purple-500"></i> Ollama & Hugging Face
+                        </h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Instale o Ollama e realize o pull do modelo: <code>ollama pull deepseek-r1:8b</code>.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Bloco de Terminal -->
+                <div class="bg-slate-900 rounded-xl p-6 shadow-lg mb-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-slate-400 text-xs font-mono">PowerShell / Terminal</span>
+                        <span class="text-slate-50 text-xs">Setup Inicial</span>
+                    </div>
+                    <pre># Clonar repositório
+git clone https://github.com/DMaia-afk/MeetSolution---Quackme.git
+cd MeetSolution---Quackme
+
+# Criar e ativar ambiente virtual
+python -m venv venv
+.\venv\Scripts\activate
+
+# Instalar dependências
+pip install -r requirements.txt
+<button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button></pre>
+                </div>
+
+                <!-- Aviso / Alerta -->
+                <div class="p-4 bg-amber-50 border-l-4 border-amber-400 text-amber-800 rounded-r-lg">
+                    <p class="text-sm"><strong>Importante (Windows):</strong> Utilize sempre o <strong>PowerShell</strong> como Administrador para evitar erros de permissão.</p>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 2: ARQUITETURA -->
+            <section id="arquitetura" class="mb-16 scroll-mt-24">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-shield-halved text-2xl text-blue-600"></i>
+                    <h3 class="text-2xl font-bold">2. Arquitetura de IA Local e Privacidade</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card p-6 rounded-xl shadow-sm">
+                        <h4 class="font-bold mb-2 text-blue-600">WhisperX</h4>
+                        <p class="text-sm text-slate-600">Transcrição até 4x mais rápida com CTranslate2.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-xl shadow-sm">
+                        <h4 class="font-bold mb-2 text-blue-600">PyAnnote</h4>
+                        <p class="text-sm text-slate-600">Diarização precisa para separar quem está falando.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-xl shadow-sm">
+                        <h4 class="font-bold mb-2 text-blue-600">Ollama</h4>
+                        <p class="text-sm text-slate-600">Processamento de texto 100% local e privado.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO: DIAGRAMA DE FLUXO -->
+            <section id="flow" class="mb-16 scroll-mt-24">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-project-diagram text-2xl text-blue-600"></i>
+                    <h3 class="text-2xl font-bold">Fluxo de Processamento</h3>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <!-- Node: Recording -->
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="p-4 bg-blue-50 text-blue-700 rounded-lg shadow-sm"><i class="fas fa-microphone-lines fa-lg"></i></div>
+                        <div class="text-sm font-semibold">Gravação<br><span class="text-xs text-slate-500 lang-en">Recording</span></div>
+                    </div>
+
+                    <div class="text-slate-400"><i class="fas fa-arrow-right fa-lg"></i></div>
+
+                    <!-- Node: WhisperX -->
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="p-4 bg-indigo-50 text-indigo-700 rounded-lg shadow-sm"><i class="fas fa-wave-square fa-lg"></i></div>
+                        <div class="text-sm font-semibold">WhisperX<br><span class="text-xs text-slate-500 lang-en">Transcription</span></div>
+                    </div>
+
+                    <div class="text-slate-400"><i class="fas fa-arrow-right fa-lg"></i></div>
+
+                    <!-- Node: PyAnnote -->
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="p-4 bg-amber-50 text-amber-700 rounded-lg shadow-sm"><i class="fas fa-user-friends fa-lg"></i></div>
+                        <div class="text-sm font-semibold">PyAnnote<br><span class="text-xs text-slate-500 lang-en">Diarization</span></div>
+                    </div>
+
+                    <div class="text-slate-400"><i class="fas fa-arrow-right fa-lg"></i></div>
+
+                    <!-- Node: Ollama -->
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="p-4 bg-green-50 text-green-700 rounded-lg shadow-sm"><i class="fas fa-brain fa-lg"></i></div>
+                        <div class="text-sm font-semibold">Ollama<br><span class="text-xs text-slate-500 lang-en">Summarization</span></div>
+                    </div>
+                </div>
+
+                <p class="text-sm text-slate-500 mt-3 lang-pt">Diagrama simples do caminho do áudio através dos componentes principais.</p>
+                <p class="text-sm text-slate-500 mt-3 lang-en">A simple diagram showing the audio path through the main components.</p>
+            </section>
+
+            <!-- SEÇÃO: INTEGRAÇÃO - EXEMPLO -->
+            <section id="integration" class="mb-12 scroll-mt-24">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-plug text-2xl text-blue-600"></i>
+                    <h3 class="text-2xl font-bold">Integração / Integration</h3>
+                </div>
+                <div class="bg-white border rounded-xl p-6 mb-6">
+                    <h4 class="font-bold mb-2 lang-pt">Exemplo de Uso (Python)</h4>
+                    <h4 class="font-bold mb-2 lang-en">Integration Example (Python)</h4>
+                    <pre>from diarization import transcribe_file
+from summarizer import summarize_transcript
+
+transcript = transcribe_file('meeting.wav')
+summary = summarize_transcript(transcript)
+print(summary)
+<button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button></pre>
+                </div>
+
+                <div class="bg-white border rounded-xl p-6">
+                    <h4 class="font-bold mb-2 lang-pt">Referências das Ferramentas</h4>
+                    <h4 class="font-bold mb-2 lang-en">Tools & References</h4>
+                    <ul class="list-disc pl-5 text-sm text-slate-600 space-y-2">
+                        <li><strong>WhisperX</strong> — <span class="lang-pt">Transcrição e alinhamento temporal.</span><span class="lang-en">Transcription and time alignment.</span></li>
+                        <li><strong>PyAnnote</strong> — <span class="lang-pt">Diarização de alto nível.</span><span class="lang-en">Speaker diarization.</span></li>
+                        <li><strong>Ollama</strong> — <span class="lang-pt">Inferência local de LLMs.</span><span class="lang-en">Local LLM inference.</span></li>
+                        <li><strong>FFmpeg</strong> — <span class="lang-pt">Conversão e normalização de áudio.</span><span class="lang-en">Audio conversion/normalization.</span></li>
+                        <li><strong>Hugging Face</strong> — <span class="lang-pt">Modelos & tokens.</span><span class="lang-en">Models & tokens.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SEÇÃO FAQ -->
+            <section id="faq" class="mb-12 scroll-mt-24">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-tachometer-alt text-2xl text-blue-600"></i>
+                    <h3 class="text-2xl font-bold">3. Matriz de Performance e Hardware</h3>
+                </div>
+                <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-sm bg-white">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 border-b border-slate-200 text-slate-700 uppercase font-semibold">
+                            <tr>
+                                <th class="px-6 py-4">Modelo</th>
+                                <th class="px-6 py-4">VRAM</th>
+                                <th class="px-6 py-4">Precisão</th>
+                                <th class="px-6 py-4">Uso Recomendado</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <!-- Linha da Tabela -->
+                            <tr class="hover:bg-slate-50">
+                                <td class="px-6 py-4 font-medium">Tiny</td>
+                                <td class="px-6 py-4">~1 GB</td>
+                                <td class="px-6 py-4"><span class="px-2 py-1 bg-red-100 text-red-600 rounded">Baixa</span></td>
+                                <td class="px-6 py-4">Testes rápidos</td>
+                            </tr>
+                            <!-- Linha Destacada (Recomendada) -->
+                            <tr class="hover:bg-blue-50/50 bg-blue-50/20">
+                                <td class="px-6 py-4 font-bold text-blue-700">Medium</td>
+                                <td class="px-6 py-4 font-medium">~5 GB</td>
+                                <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-600 rounded font-bold">Alta</span></td>
+                                <td class="px-6 py-4 font-medium italic">Equilíbrio Ideal</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="px-6 py-4 font-medium">Large-v3</td>
+                                <td class="px-6 py-4">10 GB+</td>
+                                <td class="px-6 py-4"><span class="px-2 py-1 bg-blue-100 text-blue-600 rounded font-bold">Máxima</span></td>
+                                <td class="px-6 py-4">Documentação Oficial</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 4: ÁUDIO -->
+            <section id="audio" class="mb-16 scroll-mt-24">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-microphone-lines text-2xl text-blue-600"></i>
+                    <h3 class="text-2xl font-bold">4. Configuração de Áudio (Loopback)</h3>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div class="space-y-4">
+                        <div class="flex gap-4">
+                            <span class="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold">1</span>
+                            <p><strong>Microfone:</strong> Selecione seu dispositivo de fala padrão.</p>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold">2</span>
+                            <p><strong>Stereo Mix:</strong> Habilite no Windows para capturar o som das outras pessoas na reunião.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO: DICAS DE OURO / BEST PRACTICES -->
+            <section id="best-practices" class="mb-16 scroll-mt-24">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-lightbulb text-2xl text-yellow-600"></i>
+                    <h3 class="text-2xl font-bold">Dicas de Ouro <span class="text-sm text-slate-500 ml-2">(Best Practices)</span></h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-4 bg-white border rounded-xl">
+                        <h4 class="font-bold mb-2">Posicionamento do Microfone</h4>
+                        <p class="text-sm text-slate-600 lang-pt">Mantenha o microfone a ~10-20cm da boca, em ângulo, e evite ruído de fundo direto.</p>
+                        <p class="text-sm text-slate-600 lang-en">Keep the mic ~10-20cm from your mouth, angled, and avoid direct background noise.</p>
+                    </div>
+                    <div class="p-4 bg-white border rounded-xl">
+                        <h4 class="font-bold mb-2">Como Falar para a IA Entender</h4>
+                        <p class="text-sm text-slate-600 lang-pt">Fale claro, pausadamente, e evite falar em conjunto com outros participantes.</p>
+                        <p class="text-sm text-slate-600 lang-en">Speak clearly, pause between speakers, and avoid talking over others.</p>
+                    </div>
+                    <div class="p-4 bg-white border rounded-xl">
+                        <h4 class="font-bold mb-2">Organização de Pastas</h4>
+                        <p class="text-sm text-slate-600 lang-pt">Salve áudios em <code>inputs/</code>, transcrições em <code>outputs/transcripts/</code> e resumos em <code>outputs/summaries/</code>.</p>
+                        <p class="text-sm text-slate-600 lang-en">Save audio in <code>inputs/</code>, transcripts in <code>outputs/transcripts/</code> and summaries in <code>outputs/summaries/</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 5: OTIMIZAÇÃO -->
+            <section id="diarizacao" class="mb-16 scroll-mt-24">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-sliders text-2xl text-blue-600"></i>
+                    <h3 class="text-2xl font-bold">5. Otimização de Diarização</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-6 bg-slate-900 text-white rounded-xl shadow-lg">
+                        <h4 class="font-bold mb-3 flex items-center gap-2 text-amber-400">
+                            <i class="fas fa-bolt"></i> Batch Size
+                        </h4>
+                        <p class="text-slate-400 text-sm">Aumente para 16 ou 32 se tiver muita VRAM para acelerar o processo.</p>
+                    </div>
+                    <div class="p-6 bg-slate-900 text-white rounded-xl shadow-lg">
+                        <h4 class="font-bold mb-3 flex items-center gap-2 text-blue-400">
+                            <i class="fas fa-memory"></i> VRAM Flush
+                        </h4>
+                        <p class="text-slate-400 text-sm">O código limpa a memória da GPU automaticamente após cada uso.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 6: SUMARIZAÇÃO -->
+            <section id="sumarizacao" class="mb-16 scroll-mt-24">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-brain text-2xl text-blue-600"></i>
+                    <h3 class="text-2xl font-bold">6. Engenharia de Sumarização</h3>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                    <div class="bg-slate-50 p-4 border-b border-slate-200">
+                        <p class="text-sm font-semibold text-slate-700">Prompt & Modelo DeepSeek-R1</p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span><strong>Foco em Ações:</strong> O sumário prioriza listas de tarefas (To-do lists).</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span><strong>Idioma:</strong> Configurado para responder sempre em Português.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 7: TROUBLESHOOTING -->
+            <section id="troubleshooting" class="mb-16 scroll-mt-24">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-exclamation-triangle text-2xl text-red-600"></i>
+                    <h3 class="text-2xl font-bold">7. Solução de Problemas Comuns</h3>
+                </div>
+                <div class="space-y-4">
+                    <div class="p-5 border border-slate-200 rounded-xl bg-white">
+                        <h4 class="font-bold text-slate-800 mb-2">Erro de CUDA / Memória</h4>
+                        <p class="text-sm text-slate-600">Reduza o tamanho do modelo (ex: de Medium para Small) se o app travar ao iniciar a transcrição.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rodapé -->
+            <footer class="mt-20 py-8 border-t border-slate-200 text-center text-slate-400 text-sm">
+                Documento Gerado para o Ecossistema MeetSolution • 2024
+            </footer>
+        </main>
+    </div>
+
+    <!-- JAVASCRIPT: Lógica de Interatividade -->
+    <script>
+        // Scroll spy
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.sidebar-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= (sectionTop - 150)) current = section.getAttribute('id');
+            });
+            navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href').includes(current)) link.classList.add('active'); });
+        });
+        if(navLinks.length > 0) navLinks[0].classList.add('active');
+
+        // Language toggle
+        function setLanguage(lang) {
+            document.body.setAttribute('lang', lang);
+            localStorage.setItem('ms-lang', lang);
+            const btnPt = document.getElementById('btn-pt');
+            const btnEn = document.getElementById('btn-en');
+            if (lang === 'pt') {
+                btnPt.classList.add('bg-blue-600','text-white');
+                btnPt.classList.remove('border');
+                btnEn.classList.remove('bg-blue-600','text-white');
+                btnEn.classList.add('border');
+            } else {
+                btnEn.classList.add('bg-blue-600','text-white');
+                btnEn.classList.remove('border');
+                btnPt.classList.remove('bg-blue-600','text-white');
+                btnPt.classList.add('border');
+            }
+        }
+        // init language
+        (function() { const lang = localStorage.getItem('ms-lang') || 'pt'; setLanguage(lang); })();
+
+        // Copy code button
+        function copyCode(btn) {
+            const pre = btn.parentElement;
+            const text = pre.innerText.replace(btn.innerText, '').trim();
+            navigator.clipboard.writeText(text).then(() => {
+                const old = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => btn.innerHTML = old, 1500);
+            });
+        }
+
+        // Accordion FAQ
+        document.querySelectorAll('.faq-q').forEach(q => {
+            q.addEventListener('click', () => {
+                const item = q.parentElement;
+                item.classList.toggle('open');
+            });
+        });
+
+        // Google Translate quick widget (automatic page translation)
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'pt',
+                includedLanguages: 'en,es,fr,it,de,pt',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+        (function loadGoogleTranslate(){
+            var s = document.createElement('script');
+            s.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            s.async = true;
+            document.body.appendChild(s);
+        })();
+
+        // Shortcut function to set language on the Google Translate widget (or fallback to open new tab)
+        function translatePage(lang) {
+            const combo = document.querySelector('.goog-te-combo');
+            if (combo) {
+                combo.value = lang;
+                combo.dispatchEvent(new Event('change'));
+            } else {
+                // Fallback: open Google Translate with current URL in a new tab
+                const url = 'https://translate.google.com/translate?sl=auto&tl=' + lang + '&u=' + encodeURIComponent(location.href);
+                window.open(url, '_blank');
+            }
+        }
+    </script>
+</body>
+</html>
