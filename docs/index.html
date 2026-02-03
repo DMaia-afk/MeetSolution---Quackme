@@ -180,17 +180,35 @@
                 
                 <h2 class="text-4xl font-extrabold mb-4 text-slate-900">Guia Técnico MeetSolution</h2>
                 <p class="text-xl text-slate-600 leading-relaxed lang-pt">
-                    Este guia detalha o funcionamento interno, requisitos de infraestrutura e otimizações para o MeetSolution, servindo como complemento técnico ao README oficial.
+                    O MeetSolution é uma ferramenta completa para gravar, transcrever e resumir o áudio de reuniões usando tecnologias avançadas de IA. Ele utiliza o WhisperX para a identificação e transcrição de falas e se integra ao Ollama para gerar resumos estruturados das reuniões.
                 </p>
-                <p class="text-xl text-slate-600 leading-relaxed lang-en">
-                    MeetSolution is a comprehensive tool for recording, transcribing, and summarizing meeting audio using advanced AI technologies. It leverages WhisperX for speaker diarization and transcription, and integrates with Ollama for generating structured summaries of meetings.
-                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                    <div class="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="p-2 bg-blue-100 text-blue-600 rounded-lg"><i class="fas fa-bolt"></i></div>
+                            <h3 class="font-bold text-lg">WhisperX Local</h3>
+                        </div>
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            Gratuito e de código aberto, funciona localmente sem custos de API. Oferece transcrição e diarização de alta precisão sem despesas recorrentes, ao contrário dos serviços pagos em nuvem (por exemplo, a API OpenAI Whisper cobra por minuto).
+                        </p>
+                    </div>
 
-                <h3 class="text-lg font-bold mt-4 lang-pt">Por que WhisperX e Ollama?</h3>
-                <p class="text-sm text-slate-600 lang-pt">Priorizamos soluções open-source e de custo zero: WhisperX roda localmente sem taxas; Ollama permite inferência local sem assinatura.</p>
-                <h3 class="text-lg font-bold mt-4 lang-en">Why Choose WhisperX and Ollama?</h3>
-                <p class="text-sm text-slate-600 lang-en">We prioritize cost-effective open-source solutions: WhisperX runs locally with no API fees; Ollama enables local LLM inference avoiding subscription costs.</p>
-            </section>
+                    <div class="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="p-2 bg-indigo-100 text-indigo-600 rounded-lg"><i class="fas fa-microchip"></i></div>
+                            <h3 class="font-bold text-lg">Ollama Inference</h3>
+                        </div>
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            Permite a inferência local de modelos LLM, como o <code>deepseek-r1:8b</code>, eliminando taxas de assinatura. Uma vez configurado, o uso é gratuito por tempo indeterminado, evitando a cobrança baseada em tokens de serviços como o OpenAI GPT.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-8 p-6 bg-slate-50 border border-slate-100 rounded-2xl">
+                    <p class="text-sm text-slate-600 italic">
+                        "Essa abordagem garante custos operacionais zero após o investimento inicial em hardware, tornando o MeetSolution ideal para usuários com orçamento limitado ou organizações que realizam reuniões frequentes."
+                    </p>
+                </div>
 
             <!-- SEÇÃO 1: INSTALAÇÃO -->
             <!-- O "scroll-mt-24" serve para o título não ficar grudado no topo ao clicar no menu -->
